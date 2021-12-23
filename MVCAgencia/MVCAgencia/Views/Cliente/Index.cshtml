@@ -1,0 +1,110 @@
+﻿@model MVCAgencia.Models.Cliente;
+@{
+    ViewData["Title"] = "Cliente";
+var clientes = ViewData["clientes"] as List<Cliente>;
+}
+
+<h1 class = "text-center">Gerenciamento de Clientes</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+           <br /> <h2 >Clientes Cadastrados contém os seguintes dados</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>CodCliente</th>
+                        <th>NomeCompleto</th>
+                        <th>CPF</th>
+                        <th>RG</th>
+                        <th>Dt Nasc</th>                        
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var cliente in clientes)
+                        {
+                            <tr>
+                                <td>@cliente.CodCliente </td>
+                                <td>@cliente.NomeCompleto </td>
+                                <td>@cliente.CPF</td>
+                                 <td>@cliente.RG</td>
+                                <td>@cliente.Nascimento</td>                               
+                                <td>
+                                <form asp-controller="Cliente" asp-action="Deletar">
+                                    <button class="btn btn-danger" type="submit">x deletar</button>
+                                    <input asp-for="CodCliente" style="visibility:hidden;" type="text" value="@cliente.CodCliente">
+                                </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            
+           
+            <hr />
+            <h2>Cadastrar novo cliente</h2>
+            <form asp-controller="Cliente" asp-action="Index">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="">Nome completo</label>
+                        <input asp-for="NomeCompleto" type="text" class="form-control" id="" placeholder="Camila Santos Dias">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">CPF</label>
+                        <input asp-for="CPF" type="text" class="form-control" id="" placeholder="00000000000">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">RG</label>
+                        <input asp-for="RG" type="text" class="form-control" id="" placeholder="000000000">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">Nascimento</label>
+                        <input asp-for="Nascimento" type="date" class="form-control" id="12/18/2021">
+                    </div>                    
+                </div>
+                <button type="submit" class="btn btn-success">Incluir</button>
+            </form>
+            <br />
+            <hr />
+            <br />
+            <h2>Atualizar dados de cliente já cadastrado</h2>
+            <form asp-controller="Cliente" asp-action="Atualizar">
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="">Código do cliente</label>
+                        <select class="custom-select" asp-for="CodCliente">
+                            <option selected>-- Selecione um código</option>
+                            @{
+                                foreach (var cliente in clientes)
+                                {
+                                    <option>@cliente.CodCliente</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Nome completo</label>
+                         <input asp-for="NomeCompleto" type="text" class="form-control" id="" placeholder="Camila Santos Dias">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">CPF</label>
+                        <input asp-for="CPF" type="text" class="form-control" id="" placeholder="00000000000">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">RG</label>
+                        <input asp-for="RG" type="text" class="form-control" id="" placeholder="000000000">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">Nascimento</label>
+                        <input asp-for="Nascimento" type="date" class="form-control" id="12/18/2021">
+                    </div>                   
+                </div>
+                <button type="submit" class="btn btn-primary">Atualizar</button>
+            </form>
+        </div>
+    </div>
+</div>
